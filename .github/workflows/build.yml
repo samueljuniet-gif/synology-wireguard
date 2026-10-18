@@ -14,11 +14,13 @@ jobs:
 
       - name: Compile SPK for rtd1296 (DSM 7.2)
         run: |
-          mkdir -p artifacts
-          docker run --rm --privileged --env PACKAGE_ARCH=rtd1296 --env DSM_VER=7.2 -v ${{ github.workspace }}/artifacts:/result_spk blackvoidclub/synobuild72
+          mkdir -p output
+          docker run --rm --privileged --env PACKAGE_ARCH=rtd1296 --env DSM_VER=7.2 -v ${{ github.workspace }}/output:/result_spk blackvoidclub/synobuild72
 
       - name: Upload SPK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: WireGuard-rtd1296-dsm7.2
-          path: artifacts/*.spk
+          path: |
+            output/*.spk
+            **/*.spk
